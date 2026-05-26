@@ -2,38 +2,159 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Електронний каталог</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Електронний каталог АБІС Koha</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333; margin: 20px; }
-        h1 { text-align: center; color: #2c3e50; }
-        .catalog { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; padding: 20px; }
-        .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
-        .card img { max-width: 100%; height: 150px; object-fit: cover; border-radius: 4px; }
-        .card h3 { margin: 10px 0; font-size: 18px; }
-        .card p { color: #666; font-size: 14px; }
-        .btn { display: inline-block; padding: 8px 15px; background: #3498db; color: white; text-decoration: none; border-radius: 4px; margin-top: 10px; }
-        .btn:hover { background: #2980b9; }
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 0; }
+        
+        /* Шапка сайту як на скріншоті */
+        .header { background-color: #1e3d59; color: white; text-align: center; padding: 20px 10px; }
+        .header h1 { margin: 0; font-size: 28px; background-color: #17b978; display: inline-block; padding: 5px 15px; border-radius: 4px; font-weight: bold; }
+        .header p { margin: 10px 0 0 0; font-size: 16px; color: #cbd5e1; }
+
+        /* Контейнер для форми пошуку */
+        .search-container { max-width: 1000px; margin: 30px auto 20px auto; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .search-box { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px; }
+        .filter-box { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; background-color: #fff; }
+
+        /* Контейнер каталогу */
+        .catalog-container { max-width: 1000px; margin: 0 auto 50px auto; display: flex; flex-direction: column; gap: 15px; }
+        
+        /* Картка книги у стилі списку */
+        .book-card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 8px; transition: 0.2s; }
+        .book-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .book-title { font-size: 20px; font-weight: bold; color: #1e3d59; margin: 0; }
+        
+        /* Теги як на скріншоті */
+        .meta-info { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+        .tag { background-color: #1e3d59; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .year { color: #666; font-weight: bold; }
+        .author { font-size: 16px; color: #444; margin: 5px 0 0 0; }
+        .publisher { font-size: 14px; color: #777; font-style: italic; }
+        
+        /* Кнопка переходу до книги */
+        .btn-link { align-self: flex-start; margin-top: 5px; padding: 6px 12px; background-color: #17b978; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; }
+        .btn-link:hover { background-color: #139662; }
+
+        /* Повідомлення, якщо нічого не знайдено */
+        .no-results { text-align: center; color: #999; font-size: 18px; padding: 20px; display: none; }
     </style>
 </head>
 <body>
 
-    <h1>Електронний каталог</h1>
-
-    <div class="catalog">
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Обкладинка/Фото">
-            <h3>Назва позиції 1</h3>
-            <p>Короткий опис, автор або характеристики цього елемента каталогу.</p>
-            <a href="#" class="btn">Детальніше</a>
-        </div>
-
-        <div class="card">
-            <img src="https://via.placeholder.com/150" alt="Обкладинка/Фото">
-            <h3>Назва позиції 2</h3>
-            <p>Короткий опис другого елемента вашого чудового каталогу.</p>
-            <a href="#" class="btn">Детальніше</a>
-        </div>
+    <div class="header">
+        <h1>Електронний каталог АБІС Koha</h1>
+        <p>Digital Library System</p>
     </div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-box" placeholder="Пошук за назвою книги...">
+        
+        <select id="filterSelect" class="filter-box">
+            <option value="all">Всі розділи (Справи)</option>
+            <option value="Пуаро">Еркюль Пуаро</option>
+            <option value="Марпл">Міс Марпл</option>
+            <option value="Інші">Інші справи</option>
+        </select>
+    </div>
+
+    <div class="catalog-container" id="catalogContainer">
+        
+        <div class="book-card" data-category="Пуаро">
+            <h2 class="book-title">Вбивство у «Східному експресі»</h2>
+            <div class="meta-info">
+                <span class="tag">Еркюль Пуаро</span>
+                <span class="year">| 2018</span>
+            </div>
+            <p class="author">Агата Крісті</p>
+            <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
+            <a href="#" class="btn-link">Читати / Детальніше</a>
+        </div>
+
+        <div class="book-card" data-category="Пуаро">
+            <h2 class="book-title">Вбивство Роджера Екройда</h2>
+            <div class="meta-info">
+                <span class="tag">Еркюль Пуаро</span>
+                <span class="year">| 2019</span>
+            </div>
+            <p class="author">Агата Крісті</p>
+            <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
+            <a href="#" class="btn-link">Читати / Детальніше</a>
+        </div>
+
+        <div class="book-card" data-category="Марпл">
+            <h2 class="book-title">Вбивство в будинку пастора</h2>
+            <div class="meta-info">
+                <span class="tag">Міс Марпл</span>
+                <span class="year">| 2021</span>
+            </div>
+            <p class="author">Агата Крісті</p>
+            <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
+            <a href="#" class="btn-link">Читати / Детальніше</a>
+        </div>
+
+        <div class="book-card" data-category="Марпл">
+            <h2 class="book-title">Тіло в бібліотеці</h2>
+            <div class="meta-info">
+                <span class="tag">Міс Марпл</span>
+                <span class="year">| 2022</span>
+            </div>
+            <p class="author">Агата Крісті</p>
+            <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
+            <a href="#" class="btn-link">Читати / Детальніше</a>
+        </div>
+
+        <div class="book-card" data-category="Інші">
+            <h2 class="book-title">І не лишилось жодного (Десять негренят)</h2>
+            <div class="meta-info">
+                <span class="tag">Інші справи</span>
+                <span class="year">| 2020</span>
+            </div>
+            <p class="author">Агата Крісті</p>
+            <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
+            <a href="#" class="btn-link">Читати / Детальніше</a>
+        </div>
+
+        <div class="no-results" id="noResults">Нічого не знайдено за вашим запитом</div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const filterSelect = document.getElementById('filterSelect');
+        const bookCards = document.querySelectorAll('.book-card');
+        const noResults = document.getElementById('noResults');
+
+        function filterBooks() {
+            const searchText = searchInput.value.toLowerCase().trim();
+            const selectedCategory = filterSelect.value;
+            let hasVisibleBooks = false;
+
+            bookCards.forEach(card => {
+                const title = card.querySelector('.book-title').textContent.toLowerCase();
+                const category = card.getAttribute('data-category');
+
+                const matchesSearch = title.includes(searchText);
+                const matchesCategory = (selectedCategory === 'all' || category === selectedCategory);
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'flex';
+                    hasVisibleBooks = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (hasVisibleBooks) {
+                noResults.style.display = 'none';
+            } else {
+                noResults.style.display = 'block';
+            }
+        }
+
+        searchInput.addEventListener('input', filterBooks);
+        filterSelect.addEventListener('change', filterBooks);
+    </script>
 
 </body>
 </html>
