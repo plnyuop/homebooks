@@ -6,12 +6,14 @@
     <title>Електронний каталог АБІС Koha</title>
     <style>
         * { box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 0; }
+        /* Тло сторінки замінено на твоє #f6f3cf */
+        body { font-family: Arial, sans-serif; background-color: #f6f3cf; color: #333; margin: 0; padding: 0; }
         
-        /* Шапка сайту як на скріншоті */
-        .header { background-color: #1e3d59; color: white; text-align: center; padding: 20px 10px; }
-        .header h1 { margin: 0; font-size: 28px; background-color: #17b978; display: inline-block; padding: 5px 15px; border-radius: 4px; font-weight: bold; }
-        .header p { margin: 10px 0 0 0; font-size: 16px; color: #cbd5e1; }
+        /* Шапка сайту з твоїм основним кольором #105666 */
+        .header { background-color: #105666; color: white; text-align: center; padding: 25px 10px; }
+        /* Плашка з назвою тепер ніжно-рожева #f9b6b8 з темним текстом для читабельності */
+        .header h1 { margin: 0; font-size: 28px; background-color: #f9b6b8; color: #105666; display: inline-block; padding: 6px 18px; border-radius: 4px; font-weight: bold; }
+        .header p { margin: 10px 0 0 0; font-size: 16px; color: #e2f1f3; }
 
         /* Контейнер для форми пошуку */
         .search-container { max-width: 1000px; margin: 30px auto 20px auto; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
@@ -21,24 +23,24 @@
         /* Контейнер каталогу */
         .catalog-container { max-width: 1000px; margin: 0 auto 50px auto; display: flex; flex-direction: column; gap: 15px; }
         
-        /* Картка книги у стилі списку */
+        /* Картка книги */
         .book-card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 8px; transition: 0.2s; }
-        .book-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .book-title { font-size: 20px; font-weight: bold; color: #1e3d59; margin: 0; }
+        .book-card:hover { box-shadow: 0 4px 12px rgba(16, 86, 102, 0.15); }
+        .book-title { font-size: 20px; font-weight: bold; color: #105666; margin: 0; }
         
-        /* Теги як на скріншоті */
+        /* Теги */
         .meta-info { display: flex; align-items: center; gap: 10px; font-size: 14px; }
-        .tag { background-color: #1e3d59; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .tag { background-color: #105666; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
         .year { color: #666; font-weight: bold; }
         .author { font-size: 16px; color: #444; margin: 5px 0 0 0; }
         .publisher { font-size: 14px; color: #777; font-style: italic; }
         
-        /* Кнопка переходу до книги */
-        .btn-link { align-self: flex-start; margin-top: 5px; padding: 6px 12px; background-color: #17b978; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; }
-        .btn-link:hover { background-color: #139662; }
+        /* Кнопка дії — ніжно-рожева #f9b6b8 */
+        .btn-link { align-self: flex-start; margin-top: 5px; padding: 8px 16px; background-color: #f9b6b8; color: #105666; text-decoration: none; border-radius: 4px; font-size: 14px; font-weight: bold; transition: 0.2s; }
+        .btn-link:hover { background-color: #f79da1; }
 
         /* Повідомлення, якщо нічого не знайдено */
-        .no-results { text-align: center; color: #999; font-size: 18px; padding: 20px; display: none; }
+        .no-results { text-align: center; color: #105666; font-size: 18px; padding: 20px; display: none; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -52,7 +54,7 @@
         <input type="text" id="searchInput" class="search-box" placeholder="Пошук за назвою книги...">
         
         <select id="filterSelect" class="filter-box">
-            <option value="all">Всі розділи (Справи)</option>
+            <option value="all">Всі розділи (Справи Агати Крісті)</option>
             <option value="Пуаро">Еркюль Пуаро</option>
             <option value="Марпл">Міс Марпл</option>
             <option value="Інші">Інші справи</option>
@@ -62,58 +64,91 @@
     <div class="catalog-container" id="catalogContainer">
         
         <div class="book-card" data-category="Пуаро">
-            <h2 class="book-title">Вбивство у «Східному експресі»</h2>
-            <div class="meta-info">
-                <span class="tag">Еркюль Пуаро</span>
-                <span class="year">| 2018</span>
-            </div>
+            <h2 class="book-title">Вбивство в Месопотамії</h2>
+            <div class="meta-info"><span class="tag">Еркюль Пуаро</span><span class="year">| КСД</span></div>
             <p class="author">Агата Крісті</p>
             <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
-            <a href="#" class="btn-link">Читати / Детальніше</a>
+            <a href="https://uk.wikipedia.org/wiki/Вбивство_в_Месопотамії" target="_blank" class="btn-link">Докладніше на Вікіпедії</a>
         </div>
 
         <div class="book-card" data-category="Пуаро">
-            <h2 class="book-title">Вбивство Роджера Екройда</h2>
-            <div class="meta-info">
-                <span class="tag">Еркюль Пуаро</span>
-                <span class="year">| 2019</span>
-            </div>
+            <h2 class="book-title">П'ятеро поросят</h2>
+            <div class="meta-info"><span class="tag">Еркюль Пуаро</span><span class="year">| КСД</span></div>
             <p class="author">Агата Крісті</p>
             <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
-            <a href="#" class="btn-link">Читати / Детальніше</a>
+            <a href="https://bookclub.ua/catalog/books/detective/pyatero-porosyat" target="_blank" class="btn-link">Купити в КСД</a>
+        </div>
+
+        <div class="book-card" data-category="Пуаро">
+            <h2 class="book-title">Убивство за абеткою</h2>
+            <div class="meta-info"><span class="tag">Еркюль Пуаро</span><span class="year">| КСД</span></div>
+            <p class="author">Агата Крісті</p>
+            <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
+            <a href="https://bookclub.ua/catalog/books/detective/ubivstvo-za-abetkoyu" target="_blank" class="btn-link">Купити в КСД</a>
+        </div>
+
+        <div class="book-card" data-category="Пуаро">
+            <h2 class="book-title">Смерть на Нілі</h2>
+            <div class="meta-info"><span class="tag">Еркюль Пуаро</span><span class="year">| КСД</span></div>
+            <p class="author">Агата Крісті</p>
+            <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
+            <a href="https://bookclub.ua/catalog/books/detective/smert-na-nili-kinoobkladinka" target="_blank" class="btn-link">Купити в КСД</a>
+        </div>
+
+        <div class="book-card" data-category="Пуаро">
+            <h2 class="book-title">Вбивство в Східному експресі</h2>
+            <div class="meta-info"><span class="tag">Еркюль Пуаро</span><span class="year">| КСД</span></div>
+            <p class="author">Агата Крісті</p>
+            <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
+            <a href="https://bookclub.ua/catalog/books/detective/vbiystvo-v-shidnomu-ekspresi" target="_blank" class="btn-link">Купити в КСД</a>
+        </div>
+
+        <div class="book-card" data-category="Пуаро">
+            <h2 class="book-title">Зло під сонцем</h2>
+            <div class="meta-info"><span class="tag">Еркюль Пуаро</span><span class="year">| КСД</span></div>
+            <p class="author">Агата Крісті</p>
+            <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
+            <a href="https://uk.wikipedia.org/wiki/Зло_під_сонцем" target="_blank" class="btn-link">Докладніше на Вікіпедії</a>
         </div>
 
         <div class="book-card" data-category="Марпл">
-            <h2 class="book-title">Вбивство в будинку пастора</h2>
-            <div class="meta-info">
-                <span class="tag">Міс Марпл</span>
-                <span class="year">| 2021</span>
-            </div>
+            <h2 class="book-title">Оголошено вбивство</h2>
+            <div class="meta-info"><span class="tag">Міс Марпл</span><span class="year">| КСД</span></div>
             <p class="author">Агата Крісті</p>
             <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
-            <a href="#" class="btn-link">Читати / Детальніше</a>
+            <a href="https://bookclub.ua/catalog/books/detective/ogolosheno-vbiystvo" target="_blank" class="btn-link">Купити в КСД</a>
         </div>
 
         <div class="book-card" data-category="Марпл">
-            <h2 class="book-title">Тіло в бібліотеці</h2>
-            <div class="meta-info">
-                <span class="tag">Міс Марпл</span>
-                <span class="year">| 2022</span>
-            </div>
+            <h2 class="book-title">Кишеня, повна жита</h2>
+            <div class="meta-info"><span class="tag">Міс Марпл</span><span class="year">| КСД</span></div>
             <p class="author">Агата Крісті</p>
             <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
-            <a href="#" class="btn-link">Читати / Детальніше</a>
+            <a href="https://uk.wikipedia.org/wiki/Кишеня,_повна_жита" target="_blank" class="btn-link">Докладніше на Вікіпедії</a>
         </div>
 
         <div class="book-card" data-category="Інші">
-            <h2 class="book-title">І не лишилось жодного (Десять негренят)</h2>
-            <div class="meta-info">
-                <span class="tag">Інші справи</span>
-                <span class="year">| 2020</span>
-            </div>
+            <h2 class="book-title">Наприкінці приходить смерть</h2>
+            <div class="meta-info"><span class="tag">Інші справи</span><span class="year">| КСД</span></div>
             <p class="author">Агата Крісті</p>
             <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
-            <a href="#" class="btn-link">Читати / Детальніше</a>
+            <a href="https://uk.wikipedia.org/wiki/Наприкінці_приходить_смерть" target="_blank" class="btn-link">Докладніше на Вікіпедії</a>
+        </div>
+
+        <div class="book-card" data-category="Інші">
+            <h2 class="book-title">Випробування невинуватістю</h2>
+            <div class="meta-info"><span class="tag">Інші справи</span><span class="year">| КСД</span></div>
+            <p class="author">Агата Крісті</p>
+            <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
+            <a href="https://bookclub.ua/catalog/books/detective/viprobuvannya-nevinuvatistyu" target="_blank" class="btn-link">Купити в КСД</a>
+        </div>
+
+        <div class="book-card" data-category="Інші">
+            <h2 class="book-title">Вбивство це легко</h2>
+            <div class="meta-info"><span class="tag">Інші справи</span><span class="year">| КСД</span></div>
+            <p class="author">Агата Крісті</p>
+            <p class="publisher">Видавництво: Клуб Сімейного Дозвілля (КСД)</p>
+            <a href="https://uk.wikipedia.org/wiki/Вбивство_це_легко" target="_blank" class="btn-link">Докладніше на Вікіпедії</a>
         </div>
 
         <div class="no-results" id="noResults">Нічого не знайдено за вашим запитом</div>
